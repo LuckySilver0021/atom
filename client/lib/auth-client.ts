@@ -1,7 +1,9 @@
 import { createAuthClient } from "better-auth/react"
+import { deviceAuthorizationClient } from "better-auth/client/plugins";
 export const authClient = createAuthClient({
     /** The base URL of the server (optional if you're using the same domain) */
-    baseURL: "http://localhost:3005"
+    baseURL: "http://localhost:3005",
+    plugins: [deviceAuthorizationClient()],
 })
 
 export const { signIn, signUp, useSession } = createAuthClient();
