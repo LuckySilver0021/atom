@@ -25,6 +25,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  conversations Conversation[]
+
   @@unique([email])
   @@map("user")
 }
@@ -92,4 +94,31 @@ model DeviceCode {
   updatedAt       DateTime @default(now()) @updatedAt // Added default
 
   @@map("device_code")
+}
+
+
+model Conversation {
+  id        String    @id @default(uuid())
+  userId    String
+  title     String
+  model    String @default("chat")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt() 
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+}
+
+model Message {
+  id             String    @id @default(uuid())
+  conversationId String
+  role           String
+  content        String
+  createdAt      DateTime  @default(now())
+
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
 }

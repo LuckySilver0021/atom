@@ -5,6 +5,7 @@ import chalk from "chalk";
 import figlet from "figlet";
 import { Command } from "commander";
 import { login, logout, whoami } from "./commands/auth/login.js";
+import { wakeup } from "./ai/wakeup.js";
 dotenv.config();
 
 async function main(){
@@ -21,8 +22,9 @@ async function main(){
     program.version("1.0.0").description("Chart CLI v1.0.0")
     .addCommand(login)
     .addCommand(logout)
-    .addCommand(whoami);
-
+    .addCommand(whoami)
+    .addCommand(wakeup);
+    
     program.action(()=>{
         program.help();
     })
